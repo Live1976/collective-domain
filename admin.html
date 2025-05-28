@@ -1,0 +1,1036 @@
+.login-form button:hover {
+            background: var(--accent-cyan);
+            transform: scale(1.05);
+        }
+
+        /* Admin Panel */
+        .admin-panel {
+            display: none;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .admin-header {
+            background: var(--glass-bg);
+            border: 2px solid var(--border-blue);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .admin-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.8rem;
+            color: var(--text-primary);
+            text-transform: uppercase;
+            text-shadow: 0 0 10px var(--text-primary);
+        }
+
+        .admin-controls {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: 2px solid var(--border-blue);
+            border-radius: 4px;
+            background: var(--glass-bg);
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn:hover {
+            background: var(--accent-blue);
+            color: #000000;
+            transform: translateY(-2px);
+        }
+
+        .btn-success {
+            border-color: var(--success-green);
+            color: var(--success-green);
+        }
+
+        .btn-success:hover {
+            background: var(--success-green);
+            color: #000000;
+        }
+
+        .btn-danger {
+            border-color: var(--accent-red);
+            color: var(--accent-red);
+        }
+
+        .btn-danger:hover {
+            background: var(--accent-red);
+            color: #ffffff;
+        }
+
+        /* Artworks Grid */
+        .artworks-admin-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .artwork-admin-card {
+            background: var(--glass-bg);
+            border: 2px solid var(--border-blue);
+            border-radius: 8px;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .artwork-admin-card:hover {
+            border-color: var(--accent-cyan);
+            transform: translateY(-5px);
+        }
+
+        .artwork-admin-card.empty {
+            border: 2px dashed var(--border-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 200px;
+            cursor: pointer;
+        }
+
+        .artwork-admin-card.empty:hover {
+            border-color: var(--accent-cyan);
+            background: rgba(0, 255, 255, 0.05);
+        }
+
+        .empty-content {
+            text-align: center;
+            color: var(--text-muted);
+        }
+
+        .empty-icon {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            color: var(--accent-blue);
+        }
+
+        .admin-card-image {
+            width: 100%;
+            height: 150px;
+            background: var(--bg-secondary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .admin-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .admin-image-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--accent-blue);
+        }
+
+        .admin-card-content {
+            padding: 15px;
+        }
+
+        .admin-card-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: var(--text-primary);
+            margin-bottom: 5px;
+        }
+
+        .admin-card-artist {
+            color: var(--accent-cyan);
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .admin-card-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .action-btn {
+            flex: 1;
+            padding: 8px;
+            border: 1px solid var(--border-blue);
+            border-radius: 4px;
+            background: transparent;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+        }
+
+        .action-btn:hover {
+            background: var(--accent-blue);
+            color: #000000;
+        }
+
+        /* Edit Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 3000;
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            background: var(--bg-primary);
+            border: 2px solid var(--border-blue);
+            border-radius: 8px;
+            max-width: 1000px;
+            width: 95%;
+            margin: 20px auto;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 30px rgba(0, 128, 255, 0.5);
+        }
+
+        .modal-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--border-blue);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.5rem;
+            color: var(--text-primary);
+            text-transform: uppercase;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 2rem;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .close-btn:hover {
+            background: var(--accent-red);
+            color: #ffffff;
+        }
+
+        .modal-body {
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .image-section {
+            border: 2px solid var(--border-blue);
+            border-radius: 8px;
+            padding: 20px;
+            background: var(--glass-bg);
+        }
+
+        .image-upload-area {
+            border: 2px dashed var(--border-blue);
+            border-radius: 8px;
+            padding: 40px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .image-upload-area:hover {
+            border-color: var(--accent-cyan);
+            background: rgba(0, 255, 255, 0.05);
+        }
+
+        .image-upload-area input {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .upload-placeholder {
+            color: var(--text-muted);
+        }
+
+        .upload-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: var(--accent-blue);
+        }
+
+        .preview-image {
+            max-width: 100%;
+            max-height: 300px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .form-section {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: var(--accent-cyan);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            padding: 12px;
+            background: transparent;
+            border: 2px solid var(--border-blue);
+            border-radius: 4px;
+            color: var(--text-secondary);
+            font-family: inherit;
+            font-size: 1rem;
+            resize: vertical;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+            line-height: 1.6;
+        }
+
+        .modal-footer {
+            padding: 20px;
+            border-top: 1px solid var(--border-blue);
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+        }
+
+        /* Status Messages */
+        .status-message {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            border-radius: 4px;
+            color: #ffffff;
+            font-weight: bold;
+            z-index: 4000;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        .status-success {
+            background: var(--success-green);
+            color: #000000;
+        }
+
+        .status-error {
+            background: var(--accent-red);
+        }
+
+        .status-info {
+            background: var(--accent-blue);
+            color: #000000;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); }
+            to { transform: translateX(0); }
+        }
+
+        /* Loading Overlay */
+        .loading-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 3500;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .loading-spinner {
+            color: var(--text-primary);
+            font-size: 1.2rem;
+            text-align: center;
+        }
+
+        .loading-spinner::after {
+            content: '';
+            display: block;
+            width: 40px;
+            height: 40px;
+            border: 3px solid var(--text-primary);
+            border-radius: 50%;
+            border-top-color: transparent;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .modal-body {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .admin-header {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .admin-controls {
+                justify-content: center;
+            }
+            
+            .artworks-admin-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-secondary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent-blue);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-cyan);
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Screen -->
+    <div id="loginScreen" class="login-screen">
+        <div class="login-form">
+            <h1>Admin Panel</h1>
+            <p>Collective Domain Management System</p>
+            <input type="password" id="adminPassword" placeholder="Enter admin password">
+            <br>
+            <button onclick="adminLogin()">Login</button>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="loading-spinner">Processing...</div>
+    </div>
+
+    <!-- Admin Panel -->
+    <div id="adminPanel" class="admin-panel">
+        <div class="admin-header">
+            <div class="admin-title">Collective Domain Admin</div>
+            <div class="admin-controls">
+                <button class="btn btn-success" onclick="viewPublicGallery()">View Public Gallery</button>
+                <button class="btn" onclick="exportAllData()">Export All Data</button>
+                <button class="btn btn-danger" onclick="logout()">Logout</button>
+            </div>
+        </div>
+
+        <div class="artworks-admin-grid" id="artworksAdminGrid">
+            <!-- Admin artwork cards will be generated here -->
+        </div>
+    </div>
+
+    <!-- Edit Modal -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title" id="modalTitle">Edit Artwork</div>
+                <button class="close-btn" onclick="closeModal()">&times;</button>
+            </div>
+            
+            <div class="modal-body">
+                <div class="image-section">
+                    <h3 style="color: var(--text-primary); margin-bottom: 15px;">Artwork Image</h3>
+                    <div class="image-upload-area" onclick="document.getElementById('imageInput').click()">
+                        <input type="file" id="imageInput" accept="image/*" onchange="handleImageUpload(event)">
+                        <div id="imagePreview">
+                            <div class="upload-placeholder">
+                                <div class="upload-icon">📷</div>
+                                <div>Click to upload image</div>
+                                <div style="font-size: 0.8rem; margin-top: 5px;">JPG, PNG, GIF up to 10MB</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <div class="form-group">
+                        <label for="artworkTitle">Artwork Title</label>
+                        <input type="text" id="artworkTitle" placeholder="Enter artwork title">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="artistName">Artist Name</label>
+                        <input type="text" id="artistName" placeholder="Enter artist name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="artworkYear">Year</label>
+                        <input type="text" id="artworkYear" placeholder="e.g., 2024">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="artworkMedium">Medium</label>
+                        <input type="text" id="artworkMedium" placeholder="e.g., Oil on Canvas">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="artworkSize">Dimensions</label>
+                        <input type="text" id="artworkSize" placeholder="e.g., 100 × 80 cm">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="artworkDescription">Artwork Description</label>
+                        <textarea id="artworkDescription" placeholder="Describe the artwork's concept, technique, and meaning..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="artistBio">Artist Biography</label>
+                        <textarea id="artistBio" placeholder="Artist's background, education, exhibitions, awards..."></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn" onclick="closeModal()">Cancel</button>
+                <button class="btn btn-success" onclick="saveArtwork()">Save Artwork</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDY9MdP5nIr6fouNfQMeKQorcIBdb3WHZg",
+            authDomain: "collective-domain.firebaseapp.com",
+            databaseURL: "https://collective-domain-default-rtdb.europe-west1.firebasedatabase.app",
+            projectId: "collective-domain",
+            storageBucket: "collective-domain.firebasestorage.app",
+            messagingSenderId: "280757918591",
+            appId: "1:280757918591:web:0d0cb290dc039e8551584a",
+            measurementId: "G-VMVN98SK5N"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+        const storage = firebase.storage();
+
+        // Global variables
+        let artworks = {};
+        let currentEditingId = null;
+        const ADMIN_PASSWORD = "CollectiveDomain2024!";
+
+        // Admin login
+        function adminLogin() {
+            const password = document.getElementById('adminPassword').value;
+            if (password === ADMIN_PASSWORD) {
+                document.getElementById('loginScreen').style.display = 'none';
+                document.getElementById('adminPanel').style.display = 'block';
+                sessionStorage.setItem('adminAuthenticated', 'true');
+                loadArtworksFromFirebase();
+                showStatusMessage('Admin access granted!', 'success');
+            } else {
+                showStatusMessage('Incorrect password!', 'error');
+                document.getElementById('adminPassword').value = '';
+            }
+        }
+
+        // Check if already authenticated
+        function checkAuthentication() {
+            if (sessionStorage.getItem('adminAuthenticated') === 'true') {
+                document.getElementById('loginScreen').style.display = 'none';
+                document.getElementById('adminPanel').style.display = 'block';
+                loadArtworksFromFirebase();
+            }
+        }
+
+        // Logout
+        function logout() {
+            sessionStorage.removeItem('adminAuthenticated');
+            location.reload();
+        }
+
+        // Show loading overlay
+        function showLoading() {
+            document.getElementById('loadingOverlay').style.display = 'flex';
+        }
+
+        // Hide loading overlay
+        function hideLoading() {
+            document.getElementById('loadingOverlay').style.display = 'none';
+        }
+
+        // Show status message
+        function showStatusMessage(message, type) {
+            const statusDiv = document.createElement('div');
+            statusDiv.className = `status-message status-${type}`;
+            statusDiv.textContent = message;
+            document.body.appendChild(statusDiv);
+            
+            setTimeout(() => {
+                statusDiv.remove();
+            }, 3000);
+        }
+
+        // Load artworks from Firebase
+        function loadArtworksFromFirebase() {
+            showLoading();
+            database.ref('artworks').on('value', (snapshot) => {
+                artworks = snapshot.val() || {};
+                renderAdminArtworksGrid();
+                hideLoading();
+            }, (error) => {
+                console.error('Error loading artworks:', error);
+                hideLoading();
+                showStatusMessage('Error loading artworks', 'error');
+            });
+        }
+
+        // Render admin artworks grid
+        function renderAdminArtworksGrid() {
+            const grid = document.getElementById('artworksAdminGrid');
+            grid.innerHTML = '';
+
+            for (let i = 1; i <= 19; i++) {
+                const artworkId = `artwork_${i}`;
+                const card = document.createElement('div');
+                
+                if (artworks[artworkId]) {
+                    const artwork = artworks[artworkId];
+                    card.className = 'artwork-admin-card';
+                    card.innerHTML = `
+                        <div class="admin-card-image">
+                            ${artwork.image ? 
+                                `<img src="${artwork.image}" alt="${artwork.title}">` : 
+                                `<div class="admin-image-placeholder">⌘</div>`
+                            }
+                        </div>
+                        <div class="admin-card-content">
+                            <div class="admin-card-title">${artwork.title}</div>
+                            <div class="admin-card-artist">${artwork.artist}</div>
+                            <div class="admin-card-actions">
+                                <button class="action-btn" onclick="editArtwork('${artworkId}')">Edit</button>
+                                <button class="action-btn" onclick="viewArtwork('${artworkId}')">View</button>
+                                <button class="action-btn" onclick="deleteArtwork('${artworkId}')">Delete</button>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    card.className = 'artwork-admin-card empty';
+                    card.innerHTML = `
+                        <div class="empty-content">
+                            <div class="empty-icon">+</div>
+                            <div>Add Artwork ${i}</div>
+                        </div>
+                    `;
+                    card.onclick = () => createArtwork(artworkId);
+                }
+                
+                grid.appendChild(card);
+            }
+        }
+
+        // Create new artwork
+        function createArtwork(artworkId) {
+            currentEditingId = artworkId;
+            document.getElementById('modalTitle').textContent = `Create Artwork ${artworkId.split('_')[1]}`;
+            resetForm();
+            document.getElementById('editModal').style.display = 'block';
+        }
+
+        // Edit artwork
+        function editArtwork(artworkId) {
+            currentEditingId = artworkId;
+            document.getElementById('modalTitle').textContent = `Edit Artwork ${artworkId.split('_')[1]}`;
+            loadArtworkToForm(artworkId);
+            document.getElementById('editModal').style.display = 'block';
+        }
+
+        // View artwork in public gallery
+        function viewArtwork(artworkId) {
+            const publicUrl = window.location.origin + window.location.pathname.replace('admin.html', 'index.html') + `?artwork=${artworkId}`;
+            window.open(publicUrl, '_blank');
+        }
+
+        // View public gallery
+        function viewPublicGallery() {
+            const publicUrl = window.location.origin + window.location.pathname.replace('admin.html', 'index.html');
+            window.open(publicUrl, '_blank');
+        }
+
+        // Delete artwork
+        function deleteArtwork(artworkId) {
+            if (confirm(`Are you sure you want to delete ${artworks[artworkId]?.title || 'this artwork'}?`)) {
+                showLoading();
+                database.ref('artworks/' + artworkId).remove()
+                    .then(() => {
+                        showStatusMessage('Artwork deleted successfully', 'success');
+                        hideLoading();
+                    })
+                    .catch((error) => {
+                        console.error('Error deleting artwork:', error);
+                        showStatusMessage('Error deleting artwork', 'error');
+                        hideLoading();
+                    });
+            }
+        }
+
+        // Load artwork to form
+        function loadArtworkToForm(artworkId) {
+            const artwork = artworks[artworkId];
+            if (!artwork) return;
+            
+            document.getElementById('artworkTitle').value = artwork.title || '';
+            document.getElementById('artistName').value = artwork.artist || '';
+            document.getElementById('artworkYear').value = artwork.year || '';
+            document.getElementById('artworkMedium').value = artwork.medium || '';
+            document.getElementById('artworkSize').value = artwork.size || '';
+            document.getElementById('artworkDescription').value = artwork.description || '';
+            document.getElementById('artistBio').value = artwork.artistBio || '';
+            
+            if (artwork.image) {
+                document.getElementById('imagePreview').innerHTML = `
+                    <img src="${artwork.image}" alt="Preview" class="preview-image">
+                    <div style="text-align: center; margin-top: 10px;">
+                        <button type="button" onclick="removeImage()" style="background: var(--accent-red); color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;">Remove Image</button>
+                    </div>
+                `;
+            }
+        }
+
+        // Reset form
+        function resetForm() {
+            document.getElementById('artworkTitle').value = '';
+            document.getElementById('artistName').value = '';
+            document.getElementById('artworkYear').value = '2024';
+            document.getElementById('artworkMedium').value = '';
+            document.getElementById('artworkSize').value = '';
+            document.getElementById('artworkDescription').value = '';
+            document.getElementById('artistBio').value = '';
+            document.getElementById('imagePreview').innerHTML = `
+                <div class="upload-placeholder">
+                    <div class="upload-icon">📷</div>
+                    <div>Click to upload image</div>
+                    <div style="font-size: 0.8rem; margin-top: 5px;">JPG, PNG, GIF up to 10MB</div>
+                </div>
+            `;
+        }
+
+        // Handle image upload
+        function handleImageUpload(event) {
+            const file = event.target.files[0];
+            if (file) {
+                if (file.size > 10 * 1024 * 1024) {
+                    showStatusMessage('Image size must be less than 10MB', 'error');
+                    return;
+                }
+                
+                showLoading();
+                
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('imagePreview').innerHTML = `
+                        <img src="${e.target.result}" alt="Preview" class="preview-image">
+                        <div style="text-align: center; margin-top: 10px;">
+                            <button type="button" onclick="removeImage()" style="background: var(--accent-red); color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;">Remove Image</button>
+                        </div>
+                    `;
+                    hideLoading();
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // Remove image
+        function removeImage() {
+            document.getElementById('imagePreview').innerHTML = `
+                <div class="upload-placeholder">
+                    <div class="upload-icon">📷</div>
+                    <div>Click to upload image</div>
+                    <div style="font-size: 0.8rem; margin-top: 5px;">JPG, PNG, GIF up to 10MB</div>
+                </div>
+            `;
+            document.getElementById('imageInput').value = '';
+        }
+
+        // Save artwork
+        function saveArtwork() {
+            const title = document.getElementById('artworkTitle').value.trim();
+            const artist = document.getElementById('artistName').value.trim();
+            
+            if (!title || !artist) {
+                showStatusMessage('Please fill in artwork title and artist name', 'error');
+                return;
+            }
+            
+            showLoading();
+            
+            const artworkData = {
+                title: title,
+                artist: artist,
+                year: document.getElementById('artworkYear').value.trim(),
+                medium: document.getElementById('artworkMedium').value.trim(),
+                size: document.getElementById('artworkSize').value.trim(),
+                description: document.getElementById('artworkDescription').value.trim(),
+                artistBio: document.getElementById('artistBio').value.trim(),
+                updatedAt: new Date().toISOString()
+            };
+            
+            // Handle image upload
+            const imageInput = document.getElementById('imageInput');
+            const previewImg = document.querySelector('#imagePreview img');
+            
+            if (imageInput.files[0]) {
+                // New image uploaded
+                const file = imageInput.files[0];
+                const storageRef = storage.ref();
+                const imageRef = storageRef.child(`artworks/${currentEditingId}/${Date.now()}_${file.name}`);
+                
+                imageRef.put(file).then((snapshot) => {
+                    return snapshot.ref.getDownloadURL();
+                }).then((downloadURL) => {
+                    artworkData.image = downloadURL;
+                    saveToDatabase(artworkData);
+                }).catch((error) => {
+                    console.error('Error uploading image:', error);
+                    showStatusMessage('Error uploading image', 'error');
+                    hideLoading();
+                });
+            } else if (previewImg && previewImg.src.startsWith('https://')) {
+                // Existing image
+                artworkData.image = previewImg.src;
+                saveToDatabase(artworkData);
+            } else {
+                // No image
+                artworkData.image = null;
+                saveToDatabase(artworkData);
+            }
+        }
+
+        // Save to database
+        function saveToDatabase(artworkData) {
+            database.ref('artworks/' + currentEditingId).set(artworkData)
+                .then(() => {
+                    showStatusMessage('Artwork saved successfully!', 'success');
+                    closeModal();
+                    hideLoading();
+                })
+                .catch((error) => {
+                    console.error('Error saving artwork:', error);
+                    showStatusMessage('Error saving artwork', 'error');
+                    hideLoading();
+                });
+        }
+
+        // Close modal
+        function closeModal() {
+            document.getElementById('editModal').style.display = 'none';
+            currentEditingId = null;
+        }
+
+        // Export all data
+        function exportAllData() {
+            const dataStr = JSON.stringify(artworks, null, 2);
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `collective-domain-export-${new Date().toISOString().split('T')[0]}.json`;
+            link.click();
+            URL.revokeObjectURL(url);
+            showStatusMessage('Data exported successfully', 'success');
+        }
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeModal();
+            }
+            
+            if ((event.ctrlKey || event.metaKey) && event.key === <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Collective Domain - Admin Panel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-storage-compat.js"></script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #000000;
+            --bg-secondary: #0a0a0a;
+            --text-primary: #00ff00;
+            --text-secondary: #ffffff;
+            --text-muted: #888888;
+            --accent-cyan: #00ffff;
+            --accent-blue: #0080ff;
+            --accent-red: #ff0040;
+            --border-blue: #0080ff;
+            --glass-bg: rgba(0, 128, 255, 0.1);
+            --glass-border: rgba(0, 128, 255, 0.3);
+            --success-green: #00ff00;
+            --warning-orange: #ffa500;
+        }
+
+        body {
+            font-family: 'Share Tech Mono', monospace;
+            background: var(--bg-primary);
+            color: var(--text-secondary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Login Screen */
+        .login-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+        }
+
+        .login-form {
+            background: var(--glass-bg);
+            border: 2px solid var(--border-blue);
+            border-radius: 8px;
+            padding: 40px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 30px rgba(0, 128, 255, 0.5);
+            max-width: 400px;
+            width: 90%;
+        }
+
+        .login-form h1 {
+            font-family: 'Orbitron', monospace;
+            color: var(--text-primary);
+            margin-bottom: 10px;
+            font-size: 2rem;
+            text-transform: uppercase;
+            text-shadow: 0 0 10px var(--text-primary);
+        }
+
+        .login-form p {
+            color: var(--text-muted);
+            margin-bottom: 30px;
+            font-size: 0.9rem;
+        }
+
+        .login-form input {
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            background: transparent;
+            border: 2px solid var(--border-blue);
+            border-radius: 4px;
+            color: var(--text-secondary);
+            font-family: inherit;
+            font-size: 1rem;
+        }
+
+        .login-form input:focus {
+            outline: none;
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+        }
+
+        .login-form button {
+            background: var(--accent-blue);
+            color: #000000;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            margin: 10px 5px;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            font-size: 1rem;
+        }
+
+        .login-form button:hover {
+            background: var(--accent-cyan);
+            transform: scale(
