@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Collective Domain - Admin Panel (Debug)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-storage-compat.js"></script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #000000;
+            --bg-secondary: #0a0a0a;
+            --text-primary: #00ff00;
+            --text-secondary: #ffffff;
+            --text-muted: #888888;
+            --accent-cyan: #00ffff;
+            --accent-blue: #0080ff;
+            --accent-red: #ff0040;
+            --border-blue: #0080ff;
+            --glass-bg: rgba(0, 128, 255, 0.1);
+            --success-green: #00ff00;
+        }
+
+        body {
+            font-family: 'Share Tech Mono', monospace;
+            background: var(--bg-primary);
+            color: var(--text-secondary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Debug Panel */
+        .debug-panel {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            background: rgba(255, 0, 0, 0.8);
+            color: white;
+            padding: 10px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            z-index: 5000;
+            max-width: 300px;
+        }
+
+        /* Login Screen */
+        .login-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+        }
+
+        .login-form {
+            background: var(--glass-bg);
+            border: 2px solid var(--border-blue);
+            border-radius: 8px;
+            padding: 40px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 30px rgba(0, 128, 255, 0.5);
+            max-width: 400px;
+            width: 90%;
+        }
+
+        .login-form h1 {
+            font-family: 'Orbitron', monospace;
+            color: var(--text-primary);
+            margin-bottom: 10px;
+            font-size: 2rem;
+            text-transform: uppercase;
+            text-shadow: 0 0 10px var(--text-primary);
+        }
+
+        .login-form p {
+            color: var(--text-muted);
+            margin-bottom: 30px;
+            font-size: 0.9rem;
+        }
+
+        .login-form input {
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            background: transparent;
+            border: 2px solid var(--border-blue);
+            border-radius: 4px;
+            color: var(--text-secondary);
+            font-family: inherit;
+            font-size: 1rem;
+        }
+
+        .login-form input:focus {
+            outline: none;
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+        }
+
+        .login-form button {
+            background: var(--accent-blue);
+            color: #000000;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            margin: 10px 5px;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            font-size: 1rem;
+        }
+
+        .login-form button:hover {
+            background: var(--accent-cyan);
+            transform: scale(1.05);
+        }
+
+        /* Simple Admin Panel */
+        .admin-panel {
+            display: none;
+            min-height: 100vh;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .admin-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 2rem;
+            color: var(--text-primary);
+            text-transform: uppercase;
+            text-shadow: 0 0 10px var(--text-primary);
+            margin-bottom: 30px;
+        }
+
+        .test-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            padding: 15px 25px;
+            border: 2px solid var(--border-blue);
+            border-radius: 4px;
+            background: var(--glass-bg);
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn:hover {
+            background: var(--accent-blue);
+            color: #000000;
+            transform: translateY(-2px);
+        }
+
+        .btn-danger {
+            border-color: var(--accent-red);
+            color: var(--accent-red);
+        }
+
+        .btn-danger:hover {
+            background: var(--accent-red);
+            color: #ffffff;
+        }
+
+        .status-display {
+            background: var(--glass-bg);
+            border: 2px solid var(--border-blue);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 600px;
+            text-align: left;
+        }
+
+        .status-title {
+            color: var(--text-primary);
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .status-content {
+            color: var(--text-secondary);
+            font-family: monospace;
+            white-space: pre-wrap;
+            background: var(--bg-secondary);
+            padding: 10px;
+            border-radius: 4px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        /* Status Messages */
+        .status-message {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            border-radius: 4px;
+            color: #ffffff;
+            font-weight: bold;
+            z-index: 4000;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        .status-success {
+            background: var(--success-green);
+            color: #000000;
+        }
+
+        .status-error {
+            background: var(--accent-red);
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); }
+            to { transform: translateX(0); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Debug Panel -->
+    <div class="debug-panel" id="debugPanel">
+        <div><strong>Debug Info:</strong></div>
+        <div id="debugContent">Loading...</div>
+    </div>
+
+    <!-- Login Screen -->
+    <div id="loginScreen" class="login-screen">
+        <div class="login-form">
+            <h1>Admin Panel</h1>
+            <p>Collective Domain Management System</p>
+            <p style="color: var(--accent-cyan); font-size: 0.8rem;">Debug Version - Check console for errors</p>
+            <input type="password" id="adminPassword" placeholder="Enter admin password" value="CollectiveDomain2024!">
+            <br>
+            <button onclick="adminLogin()">Login</button>
+            <div style="margin-top: 15px; color: var(--text-muted); font-size: 0.8rem;">
+                Password: CollectiveDomain2024!
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Panel -->
+    <div id="adminPanel" class="admin-panel">
+        <div class="admin-title">Admin Panel - Debug Mode</div>
+        <div style="color: var(--success-green); margin-bottom: 20px;">
+            ✓ Login Successful! Firebase connection working.
+        </div>
+        
+        <div class="test-buttons">
+            <button class="btn" onclick="testFirebase()">Test Firebase</button>
+            <button class="btn" onclick="testDatabase()">Test Database</button>
+            <button class="btn" onclick="viewPublicGallery()">View Public Gallery</button>
+            <button class="btn btn-danger" onclick="logout()">Logout</button>
+        </div>
+
+        <div class="status-display">
+            <div class="status-title">System Status:</div>
+            <div class="status-content" id="statusContent">
+Firebase initialized successfully!
+Admin authentication working!
+Ready to test database connection...
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let debugLog = [];
+        
+        function addDebugLog(message) {
+            const timestamp = new Date().toLocaleTimeString();
+            debugLog.push(`[${timestamp}] ${message}`);
+            document.getElementById('debugContent').textContent = debugLog.slice(-3).join('\n');
+            console.log(`[DEBUG] ${message}`);
+        }
+
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDY9MdP5nIr6fouNfQMeKQorcIBdb3WHZg",
+            authDomain: "collective-domain.firebaseapp.com",
+            databaseURL: "https://collective-domain-default-rtdb.europe-west1.firebasedatabase.app",
+            projectId: "collective-domain",
+            storageBucket: "collective-domain.firebasestorage.app",
+            messagingSenderId: "280757918591",
+            appId: "1:280757918591:web:0d0cb290dc039e8551584a",
+            measurementId: "G-VMVN98SK5N"
+        };
+
+        // Global variables
+        let database, storage;
+        const ADMIN_PASSWORD = "CollectiveDomain2024!";
+
+        // Initialize Firebase
+        try {
+            firebase.initializeApp(firebaseConfig);
+            database = firebase.database();
+            storage = firebase.storage();
+            addDebugLog("Firebase initialized successfully");
+        } catch (error) {
+            addDebugLog("Firebase initialization error: " + error.message);
+            console.error("Firebase Error:", error);
+        }
+
+        // Admin login
+        function adminLogin() {
+            addDebugLog("Login attempt started");
+            
+            const password = document.getElementById('adminPassword').value;
+            addDebugLog(`Password entered: ${password.length} characters`);
+            
+            if (password === ADMIN_PASSWORD) {
+                addDebugLog("Password correct!");
+                document.getElementById('loginScreen').style.display = 'none';
+                document.getElementById('adminPanel').style.display = 'block';
+                sessionStorage.setItem('adminAuthenticated', 'true');
+                showStatusMessage('Admin access granted!', 'success');
+                updateStatusContent('Login successful! Admin panel loaded.');
+            } else {
+                addDebugLog(`Password incorrect. Expected: ${ADMIN_PASSWORD}, Got: ${password}`);
+                showStatusMessage('Incorrect password!', 'error');
+                document.getElementById('adminPassword').value = '';
+            }
+        }
+
+        // Test Firebase connection
+        function testFirebase() {
+            addDebugLog("Testing Firebase connection...");
+            updateStatusContent("Testing Firebase connection...");
+            
+            try {
+                const testRef = database.ref('test');
+                testRef.set({
+                    message: "Firebase test",
+                    timestamp: new Date().toISOString()
+                }).then(() => {
+                    addDebugLog("Firebase write test successful!");
+                    updateStatusContent("✓ Firebase connection working!\n✓ Database write successful!");
+                    showStatusMessage('Firebase test successful!', 'success');
+                }).catch((error) => {
+                    addDebugLog("Firebase write error: " + error.message);
+                    updateStatusContent("✗ Firebase write failed: " + error.message);
+                    showStatusMessage('Firebase test failed!', 'error');
+                });
+            } catch (error) {
+                addDebugLog("Firebase test error: " + error.message);
+                updateStatusContent("✗ Firebase test error: " + error.message);
+                showStatusMessage('Firebase error!', 'error');
+            }
+        }
+
+        // Test database read
+        function testDatabase() {
+            addDebugLog("Testing database read...");
+            updateStatusContent("Testing database read...");
+            
+            try {
+                database.ref('artworks').once('value').then((snapshot) => {
+                    const data = snapshot.val();
+                    addDebugLog("Database read successful!");
+                    updateStatusContent(`✓ Database read successful!\nData: ${JSON.stringify(data, null, 2)}`);
+                    showStatusMessage('Database test successful!', 'success');
+                }).catch((error) => {
+                    addDebugLog("Database read error: " + error.message);
+                    updateStatusContent("✗ Database read failed: " + error.message);
+                    showStatusMessage('Database test failed!', 'error');
+                });
+            } catch (error) {
+                addDebugLog("Database test error: " + error.message);
+                updateStatusContent("✗ Database test error: " + error.message);
+                showStatusMessage('Database error!', 'error');
+            }
+        }
+
+        // View public gallery
+        function viewPublicGallery() {
+            const publicUrl = window.location.origin + window.location.pathname.replace('admin.html', 'index.html');
+            addDebugLog("Opening public gallery: " + publicUrl);
+            window.open(publicUrl, '_blank');
+        }
+
+        // Logout
+        function logout() {
+            sessionStorage.removeItem('adminAuthenticated');
+            addDebugLog("Logged out");
+            location.reload();
+        }
+
+        // Update status content
+        function updateStatusContent(message) {
+            document.getElementById('statusContent').textContent = message;
+        }
+
+        // Show status message
+        function showStatusMessage(message, type) {
+            const statusDiv = document.createElement('div');
+            statusDiv.className = `status-message status-${type}`;
+            statusDiv.textContent = message;
+            document.body.appendChild(statusDiv);
+            
+            setTimeout(() => {
+                statusDiv.remove();
+            }, 3000);
+        }
+
+        // Check if already authenticated
+        function checkAuthentication() {
+            if (sessionStorage.getItem('adminAuthenticated') === 'true') {
+                addDebugLog("Already authenticated, showing admin panel");
+                document.getElementById('loginScreen').style.display = 'none';
+                document.getElementById('adminPanel').style.display = 'block';
+            }
+        }
+
+        // Initialize
+        window.addEventListener('load', function() {
+            addDebugLog("Page loaded, checking authentication");
+            checkAuthentication();
+            
+            // Handle Enter key in password field
+            document.getElementById('adminPassword').addEventListener('keypress', function(event) {
+                if (event.key === 'Enter') {
+                    addDebugLog("Enter key pressed in password field");
+                    adminLogin();
+                }
+            });
+
+            // Add click event listener to login button
+            const loginBtn = document.querySelector('.login-form button');
+            loginBtn.addEventListener('click', function() {
+                addDebugLog("Login button clicked");
+            });
+        });
+
+        // Log any JavaScript errors
+        window.addEventListener('error', function(event) {
+            addDebugLog(`JavaScript Error: ${event.error.message}`);
+            console.error('JavaScript Error:', event.error);
+        });
+
+        addDebugLog("Script loaded successfully");
+    </script>
+</body>
+</html>
